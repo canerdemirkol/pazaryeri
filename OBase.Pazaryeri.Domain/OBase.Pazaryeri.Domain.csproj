@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <Folder Include="Dependencies\" />
+    <Folder Include="Exception\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" />
+    <PackageReference Include="Newtonsoft.Json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OBase.Pazaryeri.Core\OBase.Pazaryeri.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Dependencies\OBase.Utility.Aes.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

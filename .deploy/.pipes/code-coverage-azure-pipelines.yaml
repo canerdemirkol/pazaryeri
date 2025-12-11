@@ -1,0 +1,16 @@
+trigger: none
+schedules:
+  - cron: "0 0 * * *"
+    displayName: Daily midnight build
+    branches:
+      include:
+        - main
+
+resources:
+  repositories:
+    - repository: ci-cd
+      name: devops/ci-cd
+      type: git
+      ref: pipes
+extends:
+  template: obase-etailer/pazaryeri-api/.code-coverage.yaml@ci-cd

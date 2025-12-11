@@ -1,0 +1,121 @@
+{
+  "profiles": {
+    "OBase.Pazaryeri.Api": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7112;http://localhost:5247"
+    },
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "serverjobs",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "Gurmar": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Gurmar"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7112;http://localhost:5247"
+    },
+    "Kim": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "serverjobs",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Kim"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7112;http://localhost:5247"
+    },
+    "KimLive": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "serverjobs",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "KimLive"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7112;http://localhost:5247"
+    },
+    "Gurtat": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Gurtat"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7112;http://localhost:5247"
+    },
+    "Sariyer": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Sariyer"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7112;http://localhost:5247"
+    },
+    "SariyerLive": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "SariyerLive"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7112;http://localhost:5247"
+    },
+    "TKKLive": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "serverjobs",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "TKKLive"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7112;http://localhost:5247"
+    },
+    "TKKTest": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "serverjobs",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "TKKTest"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7112;http://localhost:5247"
+    },
+    "BasdasTest": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "serverjobs",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "BasdasTest"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7112;http://localhost:5247"
+    }
+  },
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:31046",
+      "sslPort": 44384
+    }
+  }
+}

@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <Compile Remove="Exception\**" />
+    <Compile Remove="IntegrationServices\**" />
+    <Compile Remove="Services\Abstract\Getir\**" />
+    <EmbeddedResource Remove="Exception\**" />
+    <EmbeddedResource Remove="IntegrationServices\**" />
+    <EmbeddedResource Remove="Services\Abstract\Getir\**" />
+    <None Remove="Exception\**" />
+    <None Remove="IntegrationServices\**" />
+    <None Remove="Services\Abstract\Getir\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" />
+    <PackageReference Include="FluentValidation.AspNetCore" />
+    <PackageReference Include="Hangfire.AspNetCore" />
+    <PackageReference Include="Hangfire.Core" />
+    <PackageReference Include="Hangfire.Storage.SQLite" />
+    <PackageReference Include="Polly.Core" />
+    <PackageReference Include="RestEase" />
+    <PackageReference Include="RestSharp" />
+    <PackageReference Include="Serilog" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
+    <PackageReference Include="System.ServiceModel.Duplex" />
+    <PackageReference Include="System.ServiceModel.Federation" />
+    <PackageReference Include="System.ServiceModel.Http" />
+    <PackageReference Include="System.ServiceModel.NetTcp" />
+    <PackageReference Include="System.ServiceModel.Security" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OBase.Pazaryeri.Core\OBase.Pazaryeri.Core.csproj" />
+    <ProjectReference Include="..\OBase.Pazaryeri.DataAccess\OBase.Pazaryeri.DataAccess.csproj" />
+    <ProjectReference Include="..\OBase.Pazaryeri.Domain\OBase.Pazaryeri.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

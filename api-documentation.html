@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OBase Pazaryeri API Dokümantasyonu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .section {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+            font-size: 1.8em;
+        }
+
+        .section h3 {
+            color: #764ba2;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .endpoint {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+
+        .method {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 0.9em;
+        }
+
+        .method.post {
+            background-color: #49cc90;
+            color: white;
+        }
+
+        .method.get {
+            background-color: #61affe;
+            color: white;
+        }
+
+        .url {
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            color: #333;
+            display: inline-block;
+        }
+
+        .code-block {
+            background-color: #282c34;
+            color: #abb2bf;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            position: relative;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .language-label {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #667eea;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 1em;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab:hover {
+            color: #667eea;
+        }
+
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+            font-weight: bold;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .info-box {
+            background-color: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .warning-box {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th,
+        table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #667eea;
+            color: white;
+            font-weight: bold;
+        }
+
+        table tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+
+        .badge.required {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .badge.optional {
+            background-color: #9e9e9e;
+            color: white;
+        }
+
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #e91e63;
+        }
+
+        .toc {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .toc h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc ul li {
+            padding: 8px 0;
+        }
+
+        .toc ul li a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .toc ul li a:hover {
+            color: #667eea;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            .tabs {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>OBase Pazaryeri API</h1>
+            <p>API Entegrasyon Dokümantasyonu - v1</p>
+        </header>
+
+        <div class="toc section">
+            <h3>İçindekiler</h3>
+            <ul>
+                <li><a href="#authentication">1. Kimlik Doğrulama</a></li>
+                <li><a href="#login">2. Login - Token Alma</a></li>
+                <li><a href="#create-sale">3. Satış Oluşturma</a></li>
+                <li><a href="#data-models">4. Veri Modelleri</a></li>
+            </ul>
+        </div>
+
+        <div id="authentication" class="section">
+            <h2>1. Kimlik Doğrulama</h2>
+            <p>OBase Pazaryeri API'si Bearer Token (JWT) kimlik doğrulama yöntemini kullanır.</p>
+
+            <h3>Bearer Token (JWT)</h3>
+            <p>Login endpoint'inden alınan JWT token ile kimlik doğrulama yapılır. Token, her API isteğinde Authorization header'ında gönderilmelidir.</p>
+            <div class="code-block">
+                <div class="language-label">HTTP Header</div>
+                <pre>Authorization: Bearer {your-jwt-token}</pre>
+            </div>
+
+            <div class="info-box">
+                <strong>Not:</strong> Güvenli bağlantı için tüm API istekleri HTTPS üzerinden yapılmalıdır.
+            </div>
+        </div>
+
+        <div id="login" class="section">
+            <h2>2. Login - Token Alma</h2>
+
+            <div class="endpoint">
+                <span class="method post">POST</span>
+                <span class="url">/api/v1/tokens/login</span>
+            </div>
+
+            <p>Kullanıcı adı ve şifre ile giriş yaparak JWT token alır. Bu token diğer API isteklerinde kullanılır.</p>
+
+            <h3>Request Body</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Parametre</th>
+                        <th>Tip</th>
+                        <th>Zorunluluk</th>
+                        <th>Açıklama</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>username</code></td>
+                        <td>string</td>
+                        <td><span class="badge required">Gerekli</span></td>
+                        <td>Kullanıcı adı</td>
+                    </tr>
+                    <tr>
+                        <td><code>password</code></td>
+                        <td>string</td>
+                        <td><span class="badge required">Gerekli</span></td>
+                        <td>Şifre</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Örnek İstekler</h3>
+
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('login', 'curl')">cURL</button>
+                <button class="tab" onclick="showTab('login', 'csharp')">C#</button>
+                <button class="tab" onclick="showTab('login', 'php')">PHP</button>
+                <button class="tab" onclick="showTab('login', 'javascript')">JavaScript</button>
+            </div>
+
+            <div id="login-curl" class="tab-content active">
+                <div class="code-block">
+                    <div class="language-label">cURL</div>
+                    <pre>curl -X POST "https://your-domain.com/api/v1/tokens/login" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "your_username",
+    "password": "your_password"
+  }'</pre>
+                </div>
+            </div>
+
+            <div id="login-csharp" class="tab-content">
+                <div class="code-block">
+                    <div class="language-label">C#</div>
+                    <pre>using System;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+
+public class LoginRequest
+{
+    public string Username { get; set; }
+    public string Password { get; set; }
+}
+
+public async Task&lt;string&gt; LoginAsync()
+{
+    var client = new HttpClient();
+    var loginRequest = new LoginRequest
+    {
+        Username = "your_username",
+        Password = "your_password"
+    };
+
+    var json = JsonConvert.SerializeObject(loginRequest);
+    var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+    var response = await client.PostAsync(
+        "https://your-domain.com/api/v1/tokens/login",
+        content
+    );
+
+    if (response.IsSuccessStatusCode)
+    {
+        var result = await response.Content.ReadAsStringAsync();
+        return result;
+    }
+
+    throw new Exception("Login failed");
+}</pre>
+                </div>
+            </div>
+
+            <div id="login-php" class="tab-content">
+                <div class="code-block">
+                    <div class="language-label">PHP</div>
+                    <pre>&lt;?php
+
+$url = "https://your-domain.com/api/v1/tokens/login";
+
+$data = array(
+    "username" => "your_username",
+    "password" => "your_password"
+);
+
+$ch = curl_init($url);
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+    'Content-Type: application/json'
+));
+
+$response = curl_exec($ch);
+$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+curl_close($ch);
+
+if ($httpCode == 200) {
+    $result = json_decode($response, true);
+    $token = $result['token'];
+    echo "Token: " . $token;
+} else {
+    echo "Login failed";
+}
+
+?&gt;</pre>
+                </div>
+            </div>
+
+            <div id="login-javascript" class="tab-content">
+                <div class="code-block">
+                    <div class="language-label">JavaScript (Fetch API)</div>
+                    <pre>async function login() {
+    const url = 'https://your-domain.com/api/v1/tokens/login';
+
+    const data = {
+        username: 'your_username',
+        password: 'your_password'
+    };
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+            console.log('Token:', result.token);
+            return result.token;
+        } else {
+            throw new Error('Login failed');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+// Kullanım
+login();</pre>
+                </div>
+            </div>
+
+            <h3>Başarılı Yanıt (200 OK)</h3>
+            <div class="code-block">
+                <div class="language-label">JSON</div>
+                <pre>{
+  "isSuccessful": true,
+  "data": {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImNhbmVyIiwic3ViIjoiY2FuZXIiLCJqdGkiOiJhYjA2YTYzYy0wNjQzLTRhMDYtYjJmNy05MWZlYTViZGIzNGEiLCJTdXBwbGllcklkIjoiTVVMVEktU0VSVklDRS1DVVNUT01FUiIsInJvbGUiOiIqIiwiQWxsb3dlZFNlcnZpY2UiOiIqIiwibmJmIjoxNzY1MTg0MjEzLCJleHAiOjQ5MTg3ODQyMTMsImlhdCI6MTc2NTE4NDIxMywiaXNzIjoiT2Jhc2UuUGF6YXJ5ZXJpLkFwaSIsImF1ZCI6Ik9iYXNlLlBhemFyeWVyaS5BcGkifQ.Pm1qxJzLXMCR4Ym71E2yA1sBf2-SLdpfHYOOGxB1-is",
+    "username": "caner",
+    "supplierId": "MULTI-SERVICE-CUSTOMER",
+    "expiresAt": "2125-11-14T08:56:53.538941Z"
+  }
+}</pre>
+            </div>
+
+            <h3>Hata Yanıtları</h3>
+            <div class="code-block">
+                <div class="language-label">401 Unauthorized</div>
+                <pre>{
+  "errorMessages": [
+    "Kullanıcı adı veya şifre hatalı."
+  ],
+  "isSuccessful": false
+}</pre>
+            </div>
+
+            <div class="warning-box">
+                <strong>Önemli:</strong> Token'ı güvenli bir şekilde saklayın ve her API isteğinde Authorization header'ında kullanın.
+            </div>
+        </div>
+
+        <div id="create-sale" class="section">
+            <h2>3. Satış Oluşturma</h2>
+
+            <div class="endpoint">
+                <span class="method post">POST</span>
+                <span class="url">/api/v1/sales/create</span>
+            </div>
+
+            <p>Yeni bir satış kaydı oluşturur. Bu endpoint, sipariş bilgilerini, müşteri detaylarını, ürünleri ve ödeme bilgilerini içerir.</p>
+
+            <div class="info-box">
+                <strong>Kimlik Doğrulama:</strong> Bu endpoint Bearer Token gerektirir. Login endpoint'inden aldığınız token'ı kullanın.
+            </div>
+
+            <h3>Request Headers</h3>
+            <div class="code-block">
+                <div class="language-label">HTTP Headers</div>
+                <pre>Content-Type: application/json
+Authorization: Bearer {your-jwt-token}</pre>
+            </div>
+
+            <h3>Request Body Parametreleri</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Parametre</th>
+                        <th>Tip</th>
+                        <th>Zorunluluk</th>
+                        <th>Açıklama</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>OrderId</code></td>
+                        <td>string</td>
+                        <td><span class="badge required">Gerekli</span></td>
+                        <td>Sipariş ID</td>
+                    </tr>
+                    <tr>
+                        <td><code>OrderCode</code></td>
+                        <td>string</td>
+                        <td><span class="badge optional">Opsiyonel</span></td>
+                        <td>Sipariş kodu</td>
+                    </tr>
+                    <tr>
+                        <td><code>ExternalOrderId</code></td>
+                        <td>string</td>
+                        <td><span class="badge optional">Opsiyonel</span></td>
+                        <td>Harici sipariş ID</td>
+                    </tr>
+                    <tr>
+                        <td><code>status</code></td>
+                        <td>string</td>
+                        <td><span class="badge optional">Opsiyonel</span></td>
+                        <td>Sipariş durumu</td>
+                    </tr>
+                    <tr>
+                        <td><code>StoreCode</code></td>
+                        <td>string</td>
+                        <td><span class="badge required">Gerekli</span></td>
+                        <td>Mağaza kodu</td>
+                    </tr>
+                    <tr>
+                        <td><code>SaleDateUtc</code></td>
+                        <td>datetime</td>
+                        <td><span class="badge required">Gerekli</span></td>
+                        <td>Satış tarihi (UTC)</td>
+                    </tr>
+                    <tr>
+                        <td><code>TotalPrice</code></td>
+                        <td>decimal</td>
+                        <td><span class="badge required">Gerekli</span></td>
+                        <td>Toplam fiyat</td>
+                    </tr>
+                    <tr>
+                        <td><code>TotalTaxPrice</code></td>
+                        <td>decimal</td>
+                        <td><span class="badge required">Gerekli</span></td>
+                        <td>Toplam KDV</td>
+                    </tr>
+                    <tr>
+                        <td><code>TotalReceiptDiscount</code></td>
+                        <td>decimal</td>
+                        <td><span class="badge required">Gerekli</span></td>
+                        <td>Toplam fiş indirimi</td>
+                    </tr>
+                    <tr>
+                        <td><code>TotalProductDiscount</code></td>
+                        <td>decimal</td>
+                        <td><span class="badge required">Gerekli</span></td>
+                        <td>Toplam ürün indirimi</td>
+                    </tr>
+                    <tr>
+                        <td><code>Customer</code></td>
+                        <td>object</td>
+                        <td><span class="badge required">Gerekli</span></td>
+                        <td>Müşteri bilgileri</td>
+                    </tr>
+                    <tr>
+                        <td><code>BillingAddress</code></td>
+                        <td>object</td>
+                        <td><span class="badge required">Gerekli</span></td>
+                        <td>Fatura adresi</td>
+                    </tr>
+                    <tr>
+                        <td><code>ShippingAddress</code></td>
+                        <td>object</td>
+                        <td><span class="badge required">Gerekli</span></td>
+                        <td>Teslimat adresi</td>
+                    </tr>
+                    <tr>
+                        <td><code>Items</code></td>
+                        <td>array</td>
+                        <td><span class="badge required">Gerekli</span></td>
+                        <td>Ürün listesi (boş olabilir)</td>
+                    </tr>
+                    <tr>
+                        <td><code>Payments</code></td>
+                        <td>array</td>
+                        <td><span class="badge required">Gerekli</span></td>
+                        <td>Ödeme bilgileri (boş olabilir)</td>
+                    </tr>
+                    <tr>
+                        <td><code>Discounts</code></td>
+                        <td>array</td>
+                        <td><span class="badge optional">Opsiyonel</span></td>
+                        <td>İndirim bilgileri</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Örnek Request Body</h3>
+            <div class="code-block">
+                <div class="language-label">JSON</div>
+                <pre>{
+  "OrderId": "ORD-2025-001234",
+  "StoreCode": "STORE001",
+  "SaleDateUtc": "2025-11-24T10:30:00Z",
+  "TotalPrice": 945.50,
+  "TotalTaxPrice": 145.50,
+  "TotalReceiptDiscount": 50.00,
+  "TotalProductDiscount": 25.00,
+  "Customer": {
+    "CustomerId": "CUST-12345",
+    "CardNo": "1234567890",
+    "Name": "Ahmet",
+    "LastName": "Yılmaz",
+    "PhoneNumber": "+905551234567"
+  },
+  "BillingAddress": {
+    "Address": "Atatürk Caddesi No:123",
+    "Address2": "Daire 5",
+    "District": "Kadıköy",
+    "City": "İstanbul",
+    "TaxNo": "12345678901",
+    "TaxOffice": "Kadıköy Vergi Dairesi"
+  },
+  "ShippingAddress": {
+    "Address": "Cumhuriyet Bulvarı No:456",
+    "Address2": "Kat 3",
+    "District": "Karşıyaka",
+    "City": "İzmir",
+    "PhoneNumber": "+905559876543"
+  },
+  "Items": [
+    {
+      "ItemId": "ITEM-001",
+      "ProductCode": "PROD-12345",
+      "Barcode": "8690123456789",
+      "Quantity": 2,
+      "Price": 250.00,
+      "Total": 500.00,
+      "VatRate": 20,
+      "TotalVat": 83.33,
+      "ReceiptDiscount": 25.00,
+      "ProductDiscount": 10.00
+    },
+    {
+      "ItemId": "ITEM-002",
+      "ProductCode": "PROD-67890",
+      "Barcode": "8690987654321",
+      "Quantity": 1,
+      "Price": 520.50,
+      "Total": 520.50,
+      "VatRate": 20,
+      "TotalVat": 86.75,
+      "ReceiptDiscount": 25.00,
+      "ProductDiscount": 15.00
+    }
+  ],
+  "Payments": [
+    {
+      "Code": "CC",
+      "Total": 500.00,
+      "InstallmentCount": 3
+    },
+    {
+      "Code": "CASH",
+      "Total": 445.50,
+      "InstallmentCount": null
+    }
+  ],
+  "Discounts": [
+    {
+      "Code": "CAMPAIGN01",
+      "Total": 50.00,
+      "Barcode": null,
+      "ProductCode": null
+    },
+    {
+      "Code": "PRODDISC",
+      "Total": 10.00,
+      "Barcode": "8690123456789",
+      "ProductCode": "PROD-12345"
+    },
+    {
+      "Code": "PRODDISC",
+      "Total": 15.00,
+      "Barcode": "8690987654321",
+      "ProductCode": "PROD-67890"
+    }
+  ]
+}</pre>
+            </div>
+
+            <h3>Örnek İstekler</h3>
+
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('sale', 'curl')">cURL</button>
+                <button class="tab" onclick="showTab('sale', 'csharp')">C#</button>
+                <button class="tab" onclick="showTab('sale', 'php')">PHP</button>
+                <button class="tab" onclick="showTab('sale', 'javascript')">JavaScript</button>
+            </div>
+
+            <div id="sale-curl" class="tab-content active">
+                <div class="code-block">
+                    <div class="language-label">cURL</div>
+                    <pre>curl -X POST "https://your-domain.com/api/v1/sales/create" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {your-jwt-token}" \
+  -d '{
+    "OrderId": "ORD-2025-001234",
+    "StoreCode": "STORE001",
+    "SaleDateUtc": "2025-11-24T10:30:00Z",
+    "TotalPrice": 945.50,
+    "TotalTaxPrice": 145.50,
+    "TotalReceiptDiscount": 50.00,
+    "TotalProductDiscount": 25.00,
+    "Customer": {
+      "CustomerId": "CUST-12345",
+      "CardNo": "1234567890",
+      "Name": "Ahmet",
+      "LastName": "Yılmaz",
+      "PhoneNumber": "+905551234567"
+    },
+    "BillingAddress": {
+      "Address": "Atatürk Caddesi No:123",
+      "Address2": "Daire 5",
+      "District": "Kadıköy",
+      "City": "İstanbul",
+      "TaxNo": "12345678901",
+      "TaxOffice": "Kadıköy Vergi Dairesi"
+    },
+    "ShippingAddress": {
+      "Address": "Cumhuriyet Bulvarı No:456",
+      "Address2": "Kat 3",
+      "District": "Karşıyaka",
+      "City": "İzmir",
+      "PhoneNumber": "+905559876543"
+    },
+    "Items": [
+      {
+        "ItemId": "ITEM-001",
+        "ProductCode": "PROD-12345",
+        "Barcode": "8690123456789",
+        "Quantity": 2,
+        "Price": 250.00,
+        "Total": 500.00,
+        "VatRate": 20,
+        "TotalVat": 83.33,
+        "ReceiptDiscount": 25.00,
+        "ProductDiscount": 10.00
+      },
+      {
+        "ItemId": "ITEM-002",
+        "ProductCode": "PROD-67890",
+        "Barcode": "8690987654321",
+        "Quantity": 1,
+        "Price": 520.50,
+        "Total": 520.50,
+        "VatRate": 20,
+        "TotalVat": 86.75,
+        "ReceiptDiscount": 25.00,
+        "ProductDiscount": 15.00
+      }
+    ],
+    "Payments": [
+      {
+        "Code": "CC",
+        "Total": 500.00,
+        "InstallmentCount": 3
+      },
+      {
+        "Code": "CASH",
+        "Total": 445.50,
+        "InstallmentCount": null
+      }
+    ],
+    "Discounts": [
+      {
+        "Code": "CAMPAIGN01",
+        "Total": 50.00,
+        "Barcode": null,
+        "ProductCode": null
+      },
+      {
+        "Code": "PRODDISC",
+        "Total": 10.00,
+        "Barcode": "8690123456789",
+        "ProductCode": "PROD-12345"
+      },
+      {
+        "Code": "PRODDISC",
+        "Total": 15.00,
+        "Barcode": "8690987654321",
+        "ProductCode": "PROD-67890"
+      }
+    ]
+  }'</pre>
+                </div>
+            </div>
+
+            <div id="sale-csharp" class="tab-content">
+                <div class="code-block">
+                    <div class="language-label">C#</div>
+                    <pre>using System;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+
+public class SaleRequest
+{
+    public string OrderId { get; set; }
+    public string OrderCode { get; set; }
+    public string StoreCode { get; set; }
+    public DateTime SaleDateUtc { get; set; }
+    public double TotalPrice { get; set; }
+    public double TotalTaxPrice { get; set; }
+    public double TotalReceiptDiscount { get; set; }
+    public double TotalProductDiscount { get; set; }
+    public Customer Customer { get; set; }
+    public List&lt;Item&gt; Items { get; set; }
+    public List&lt;Payment&gt; Payments { get; set; }
+}
+
+public async Task&lt;bool&gt; CreateSaleAsync(string token)
+{
+    var client = new HttpClient();
+    client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+
+    var saleRequest = new SaleRequest
+    {
+        OrderId = "ORD-2025-001234",
+        StoreCode = "STORE001",
+        SaleDateUtc = new DateTime(2025, 11, 24, 10, 30, 0, DateTimeKind.Utc),
+        TotalPrice = 945.50,
+        TotalTaxPrice = 145.50,
+        TotalReceiptDiscount = 50.00,
+        TotalProductDiscount = 25.00,
+        Customer = new Customer
+        {
+            CustomerId = "CUST-12345",
+            CardNo = "1234567890",
+            Name = "Ahmet",
+            LastName = "Yılmaz",
+            PhoneNumber = "+905551234567"
+        },
+        BillingAddress = new BillingAddress
+        {
+            Address = "Atatürk Caddesi No:123",
+            Address2 = "Daire 5",
+            District = "Kadıköy",
+            City = "İstanbul",
+            TaxNo = "12345678901",
+            TaxOffice = "Kadıköy Vergi Dairesi"
+        },
+        ShippingAddress = new ShippingAddress
+        {
+            Address = "Cumhuriyet Bulvarı No:456",
+            Address2 = "Kat 3",
+            District = "Karşıyaka",
+            City = "İzmir",
+            PhoneNumber = "+905559876543"
+        },
+        Items = new List&lt;Item&gt;
+        {
+            new Item
+            {
+                ItemId = "ITEM-001",
+                ProductCode = "PROD-12345",
+                Barcode = "8690123456789",
+                Quantity = 2,
+                Price = 250.00,
+                Total = 500.00,
+                VatRate = 20,
+                TotalVat = 83.33,
+                ReceiptDiscount = 25.00,
+                ProductDiscount = 10.00
+            },
+            new Item
+            {
+                ItemId = "ITEM-002",
+                ProductCode = "PROD-67890",
+                Barcode = "8690987654321",
+                Quantity = 1,
+                Price = 520.50,
+                Total = 520.50,
+                VatRate = 20,
+                TotalVat = 86.75,
+                ReceiptDiscount = 25.00,
+                ProductDiscount = 15.00
+            }
+        },
+        Payments = new List&lt;Payment&gt;
+        {
+            new Payment
+            {
+                Code = "CC",
+                Total = 500.00,
+                InstallmentCount = 3
+            },
+            new Payment
+            {
+                Code = "CASH",
+                Total = 445.50,
+                InstallmentCount = null
+            }
+        },
+        Discounts = new List&lt;Discount&gt;
+        {
+            new Discount
+            {
+                Code = "CAMPAIGN01",
+                Total = 50.00,
+                Barcode = null,
+                ProductCode = null
+            },
+            new Discount
+            {
+                Code = "PRODDISC",
+                Total = 10.00,
+                Barcode = "8690123456789",
+                ProductCode = "PROD-12345"
+            },
+            new Discount
+            {
+                Code = "PRODDISC",
+                Total = 15.00,
+                Barcode = "8690987654321",
+                ProductCode = "PROD-67890"
+            }
+        }
+    };
+
+    var json = JsonConvert.SerializeObject(saleRequest);
+    var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+    var response = await client.PostAsync(
+        "https://your-domain.com/api/v1/sales/create",
+        content
+    );
+
+    return response.IsSuccessStatusCode;
+}</pre>
+                </div>
+            </div>
+
+            <div id="sale-php" class="tab-content">
+                <div class="code-block">
+                    <div class="language-label">PHP</div>
+                    <pre>&lt;?php
+
+$url = "https://your-domain.com/api/v1/sales/create";
+$token = "your-jwt-token"; // Login'den aldığınız token
+
+$data = array(
+    "OrderId" => "ORD-2025-001234",
+    "StoreCode" => "STORE001",
+    "SaleDateUtc" => "2025-11-24T10:30:00Z",
+    "TotalPrice" => 945.50,
+    "TotalTaxPrice" => 145.50,
+    "TotalReceiptDiscount" => 50.00,
+    "TotalProductDiscount" => 25.00,
+    "Customer" => array(
+        "CustomerId" => "CUST-12345",
+        "CardNo" => "1234567890",
+        "Name" => "Ahmet",
+        "LastName" => "Yılmaz",
+        "PhoneNumber" => "+905551234567"
+    ),
+    "BillingAddress" => array(
+        "Address" => "Atatürk Caddesi No:123",
+        "Address2" => "Daire 5",
+        "District" => "Kadıköy",
+        "City" => "İstanbul",
+        "TaxNo" => "12345678901",
+        "TaxOffice" => "Kadıköy Vergi Dairesi"
+    ),
+    "ShippingAddress" => array(
+        "Address" => "Cumhuriyet Bulvarı No:456",
+        "Address2" => "Kat 3",
+        "District" => "Karşıyaka",
+        "City" => "İzmir",
+        "PhoneNumber" => "+905559876543"
+    ),
+    "Items" => array(
+        array(
+            "ItemId" => "ITEM-001",
+            "ProductCode" => "PROD-12345",
+            "Barcode" => "8690123456789",
+            "Quantity" => 2,
+            "Price" => 250.00,
+            "Total" => 500.00,
+            "VatRate" => 20,
+            "TotalVat" => 83.33,
+            "ReceiptDiscount" => 25.00,
+            "ProductDiscount" => 10.00
+        ),
+        array(
+            "ItemId" => "ITEM-002",
+            "ProductCode" => "PROD-67890",
+            "Barcode" => "8690987654321",
+            "Quantity" => 1,
+            "Price" => 520.50,
+            "Total" => 520.50,
+            "VatRate" => 20,
+            "TotalVat" => 86.75,
+            "ReceiptDiscount" => 25.00,
+            "ProductDiscount" => 15.00
+        )
+    ),
+    "Payments" => array(
+        array(
+            "Code" => "CC",
+            "Total" => 500.00,
+            "InstallmentCount" => 3
+        ),
+        array(
+            "Code" => "CASH",
+            "Total" => 445.50,
+            "InstallmentCount" => null
+        )
+    ),
+    "Discounts" => array(
+        array(
+            "Code" => "CAMPAIGN01",
+            "Total" => 50.00,
+            "Barcode" => null,
+            "ProductCode" => null
+        ),
+        array(
+            "Code" => "PRODDISC",
+            "Total" => 10.00,
+            "Barcode" => "8690123456789",
+            "ProductCode" => "PROD-12345"
+        ),
+        array(
+            "Code" => "PRODDISC",
+            "Total" => 15.00,
+            "Barcode" => "8690987654321",
+            "ProductCode" => "PROD-67890"
+        )
+    )
+);
+
+$ch = curl_init($url);
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+    'Content-Type: application/json',
+    'Authorization: Bearer ' . $token
+));
+
+$response = curl_exec($ch);
+$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+curl_close($ch);
+
+if ($httpCode == 200) {
+    echo "Sale created successfully";
+} else {
+    echo "Sale creation failed: " . $response;
+}
+
+?&gt;</pre>
+                </div>
+            </div>
+
+            <div id="sale-javascript" class="tab-content">
+                <div class="code-block">
+                    <div class="language-label">JavaScript (Fetch API)</div>
+                    <pre>async function createSale(token) {
+    const url = 'https://your-domain.com/api/v1/sales/create';
+
+    const data = {
+        OrderId: 'ORD-2025-001234',
+        StoreCode: 'STORE001',
+        SaleDateUtc: '2025-11-24T10:30:00Z',
+        TotalPrice: 945.50,
+        TotalTaxPrice: 145.50,
+        TotalReceiptDiscount: 50.00,
+        TotalProductDiscount: 25.00,
+        Customer: {
+            CustomerId: 'CUST-12345',
+            CardNo: '1234567890',
+            Name: 'Ahmet',
+            LastName: 'Yılmaz',
+            PhoneNumber: '+905551234567'
+        },
+        BillingAddress: {
+            Address: 'Atatürk Caddesi No:123',
+            Address2: 'Daire 5',
+            District: 'Kadıköy',
+            City: 'İstanbul',
+            TaxNo: '12345678901',
+            TaxOffice: 'Kadıköy Vergi Dairesi'
+        },
+        ShippingAddress: {
+            Address: 'Cumhuriyet Bulvarı No:456',
+            Address2: 'Kat 3',
+            District: 'Karşıyaka',
+            City: 'İzmir',
+            PhoneNumber: '+905559876543'
+        },
+        Items: [
+            {
+                ItemId: 'ITEM-001',
+                ProductCode: 'PROD-12345',
+                Barcode: '8690123456789',
+                Quantity: 2,
+                Price: 250.00,
+                Total: 500.00,
+                VatRate: 20,
+                TotalVat: 83.33,
+                ReceiptDiscount: 25.00,
+                ProductDiscount: 10.00
+            },
+            {
+                ItemId: 'ITEM-002',
+                ProductCode: 'PROD-67890',
+                Barcode: '8690987654321',
+                Quantity: 1,
+                Price: 520.50,
+                Total: 520.50,
+                VatRate: 20,
+                TotalVat: 86.75,
+                ReceiptDiscount: 25.00,
+                ProductDiscount: 15.00
+            }
+        ],
+        Payments: [
+            {
+                Code: 'CC',
+                Total: 500.00,
+                InstallmentCount: 3
+            },
+            {
+                Code: 'CASH',
+                Total: 445.50,
+                InstallmentCount: null
+            }
+        ],
+        Discounts: [
+            {
+                Code: 'CAMPAIGN01',
+                Total: 50.00,
+                Barcode: null,
+                ProductCode: null
+            },
+            {
+                Code: 'PRODDISC',
+                Total: 10.00,
+                Barcode: '8690123456789',
+                ProductCode: 'PROD-12345'
+            },
+            {
+                Code: 'PRODDISC',
+                Total: 15.00,
+                Barcode: '8690987654321',
+                ProductCode: 'PROD-67890'
+            }
+        ]
+    };
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+            console.log('Sale created successfully');
+            return true;
+        } else {
+            const error = await response.text();
+            throw new Error(`Sale creation failed: ${error}`);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        return false;
+    }
+}
+
+// Kullanım
+const token = 'your-jwt-token'; // Login'den aldığınız token
+createSale(token);</pre>
+                </div>
+            </div>
+
+            <h3>Başarılı Yanıt (200 OK)</h3>
+            <div class="code-block">
+                <div class="language-label">JSON</div>
+                <pre>{
+  "isSuccessful": true,
+  "data": {
+    "saleNo": "501622840",
+    "success": true,
+    "message": "Sale Info Saved",
+    "statusCode": 200
+  }
+}</pre>
+            </div>
+
+            <h3>Hata Yanıtları</h3>
+            <div class="code-block">
+                <div class="language-label">400 Bad Request</div>
+                <pre>{
+  "errorMessages": [
+    "SaleDateUtc alanı zorunludur.",
+    "TotalPrice alanı sıfırdan büyük olmalıdır."
+  ],
+  "isSuccessful": false
+}</pre>
+            </div>
+
+            <div class="code-block">
+                <div class="language-label">401 Unauthorized</div>
+                <pre>{
+  "errorMessages": [
+    "Geçersiz veya süresi dolmuş token."
+  ],
+  "isSuccessful": false
+}</pre>
+            </div>
+        </div>
+
+        <div id="data-models" class="section">
+            <h2>4. Veri Modelleri</h2>
+
+            <h3>Customer (Müşteri)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Alan</th>
+                        <th>Tip</th>
+                        <th>Zorunluluk</th>
+                        <th>Açıklama</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>CustomerId</code></td>
+                        <td>string</td>
+                        <td><span class="badge required">Gerekli</span></td>
+                        <td>Müşteri ID</td>
+                    </tr>
+                    <tr>
+                        <td><code>CardNo</code></td>
+                        <td>string</td>
+                        <td><span class="badge optional">Opsiyonel</span></td>
+                        <td>Kart numarası</td>
+                    </tr>
+                    <tr>
+                        <td><code>Name</code></td>
+                        <td>string</td>
+                        <td><span class="badge optional">Opsiyonel</span></td>
+                        <td>Ad</td>
+                    </tr>
+                    <tr>
+                        <td><code>LastName</code></td>
+                        <td>string</td>
+                        <td><span class="badge optional">Opsiyonel</span></td>
+                        <td>Soyad</td>
+                    </tr>
+                    <tr>
+                        <td><code>PhoneNumber</code></td>
+                        <td>string</td>
+                        <td><span class="badge optional">Opsiyonel</span></td>
+                        <td>Telefon numarası</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>BillingAddress (Fatura Adresi)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Alan</th>
+                        <th>Tip</th>
+                        <th>Zorunluluk</th>
+                        <th>Açıklama</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>Address</code></td>
+                        <td>string</td>
+                        <td><span class="badge optional">Opsiyonel</span></td>
+                        <td>Adres satır 1</td>
+                    </tr>
+                    <tr>
+                        <td><code>Address2</code></td>
+                        <td>string</td>
+                        <td><span class="badge optional">Opsiyonel</span></td>
+                        <td>Adres satır 2</td>
+                    </tr>
+                    <tr>
+                        <td><code>District</code></td>
+                        <td>string</td>
+                        <td><span class="badge optional">Opsiyonel</span></td>
+                        <td>İlçe</td>
+                    </tr>
+                    <tr>
+                        <td><code>City</code></td>
+                        <td>string</td>
+                        <td><span class="badge optional">Opsiyonel</span></td>
+                        <td>Şehir</td>
+                    </tr>
+                    <tr>
+                        <td><code>TaxNo</code></td>
+                        <td>string</td>
+                        <td><span class="badge optional">Opsiyonel</span></td>
+                        <td>Vergi numarası</td>
+                    </tr>
+                    <tr>
+                        <td><code>TaxOffice</code></td>
+                        <td>string</td>
+                        <td><span class="badge optional">Opsiyonel</span></td>
+                        <td>Vergi dairesi</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>ShippingAddress (Teslimat Adresi)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Alan</th>
+                        <th>Tip</th>
+                        <th>Zorunluluk</th>
+                        <th>Açıklama</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>Address</code></td>
+                        <td>string</td>
+                        <td><span class="badge optional">Opsiyonel</span></td>
+                        <td>Adres satır 1</td>
+                    </tr>
+                    <tr>
+                        <td><code>Address2</code></td>
+                        <td>string</td>
+                        <td><span class="badge optional">Opsiyonel</span></td>
+                        <td>Adres satır 2</td>
+                    </tr>
+                    <tr>
+                        <td><code>District</code></td>
+                        <td>string</td>
+                        <td><span class="badge optional">Opsiyonel</span></td>
+                        <td>İlçe</td>
+                    </tr>
+                    <tr>
+                        <td><code>City</code></td>
+                        <td>string</td>
+                        <td><span class="badge optional">Opsiyonel</span></td>
+                        <td>Şehir</td>
+                    </tr>
+                    <tr>
+                        <td><code>PhoneNumber</code></td>
+                        <td>string</td>
+                        <td><span class="badge optional">Opsiyonel</span></td>
+                        <td>Telefon numarası</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Item (Ürün)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Alan</th>
+                        <th>Tip</th>
+                        <th>Zorunluluk</th>
+                        <th>Açıklama</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>ItemId</code></td>
+                        <td>string</td>
+                        <td><span class="badge required">Gerekli</span></td>
+                        <td>Ürün ID</td>
+                    </tr>
+                    <tr>
+                        <td><code>ProductCode</code></td>
+                        <td>string</td>
+                        <td><span class="badge required">Gerekli</span></td>
+                        <td>Ürün kodu</td>
+                    </tr>
+                    <tr>
+                        <td><code>Barcode</code></td>
+                        <td>string</td>
+                        <td><span class="badge required">Gerekli</span></td>
+                        <td>Barkod</td>
+                    </tr>
+                    <tr>
+                        <td><code>Quantity</code></td>
+                        <td>decimal</td>
+                        <td><span class="badge required">Gerekli</span></td>
+                        <td>Miktar</td>
+                    </tr>
+                    <tr>
+                        <td><code>Price</code></td>
+                        <td>decimal</td>
+                        <td><span class="badge required">Gerekli</span></td>
+                        <td>Birim fiyat</td>
+                    </tr>
+                    <tr>
+                        <td><code>Total</code></td>
+                        <td>decimal</td>
+                        <td><span class="badge required">Gerekli</span></td>
+                        <td>Toplam fiyat</td>
+                    </tr>
+                    <tr>
+                        <td><code>VatRate</code></td>
+                        <td>decimal</td>
+                        <td><span class="badge required">Gerekli</span></td>
+                        <td>KDV oranı (%)</td>
+                    </tr>
+                    <tr>
+                        <td><code>TotalVat</code></td>
+                        <td>decimal</td>
+                        <td><span class="badge required">Gerekli</span></td>
+                        <td>Toplam KDV</td>
+                    </tr>
+                    <tr>
+                        <td><code>ReceiptDiscount</code></td>
+                        <td>decimal</td>
+                        <td><span class="badge optional">Opsiyonel</span></td>
+                        <td>Fiş indirimi</td>
+                    </tr>
+                    <tr>
+                        <td><code>ProductDiscount</code></td>
+                        <td>decimal</td>
+                        <td><span class="badge optional">Opsiyonel</span></td>
+                        <td>Ürün indirimi</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Payment (Ödeme)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Alan</th>
+                        <th>Tip</th>
+                        <th>Zorunluluk</th>
+                        <th>Açıklama</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>Code</code></td>
+                        <td>string</td>
+                        <td><span class="badge required">Gerekli</span></td>
+                        <td>Ödeme tipi kodu (CC, CASH, vb.)</td>
+                    </tr>
+                    <tr>
+                        <td><code>Total</code></td>
+                        <td>decimal</td>
+                        <td><span class="badge optional">Opsiyonel</span></td>
+                        <td>Ödeme tutarı</td>
+                    </tr>
+                    <tr>
+                        <td><code>InstallmentCount</code></td>
+                        <td>integer</td>
+                        <td><span class="badge optional">Opsiyonel</span></td>
+                        <td>Taksit sayısı</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Discount (İndirim)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Alan</th>
+                        <th>Tip</th>
+                        <th>Zorunluluk</th>
+                        <th>Açıklama</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>Code</code></td>
+                        <td>string</td>
+                        <td><span class="badge optional">Opsiyonel</span></td>
+                        <td>İndirim kodu</td>
+                    </tr>
+                    <tr>
+                        <td><code>Total</code></td>
+                        <td>decimal</td>
+                        <td><span class="badge optional">Opsiyonel</span></td>
+                        <td>İndirim tutarı</td>
+                    </tr>
+                    <tr>
+                        <td><code>Barcode</code></td>
+                        <td>string</td>
+                        <td><span class="badge optional">Opsiyonel</span></td>
+                        <td>İlgili ürün barkodu</td>
+                    </tr>
+                    <tr>
+                        <td><code>ProductCode</code></td>
+                        <td>string</td>
+                        <td><span class="badge optional">Opsiyonel</span></td>
+                        <td>İlgili ürün kodu</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function showTab(section, language) {
+            // Hide all tabs for this section
+            const tabs = document.querySelectorAll(`#${section}-${language}`).length > 0
+                ? document.querySelectorAll(`[id^="${section}-"]`)
+                : [];
+
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Remove active class from all tab buttons in this section
+            const tabButtons = event.target.parentElement.querySelectorAll('.tab');
+            tabButtons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected tab
+            const selectedTab = document.getElementById(`${section}-${language}`);
+            if (selectedTab) {
+                selectedTab.classList.add('active');
+            }
+
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

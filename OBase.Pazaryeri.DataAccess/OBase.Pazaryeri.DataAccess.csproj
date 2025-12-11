@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OBase.Pazaryeri.Core\OBase.Pazaryeri.Core.csproj" />
+    <ProjectReference Include="..\OBase.Pazaryeri.Domain\OBase.Pazaryeri.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
